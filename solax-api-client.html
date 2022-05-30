@@ -1,0 +1,44 @@
+<script type="text/javascript">
+    RED.nodes.registerType('solax-cloud-api-client',{
+        category: 'network',
+        color: '#DAA520',
+        defaults: {
+            apiToken: {value:"",required:true},
+            apiSn:{value:"",required:true},
+            endPoint:{value:"https://www.solaxcloud.com/proxyApp/proxy/api/getRealtimeInfo.do",required:true},
+            refreshPeriod:{value:"300",required:false}
+        }, 
+        inputs:0,
+        outputs:1,
+        icon: "feed.svg",
+        label: function() {
+            return this.name||"solax-cloud-api-client";
+        }
+    });
+</script>
+
+<script type="text/html" data-template-name="solax-cloud-api-client">
+    <div class="form-row">
+        <label for="node-input-apiToken"><i class="fa fa-tag"></i> Api Token</label>
+        <input type="text" id="node-input-apiToken" placeholder="Token">
+    </div>
+    <div class="form-row">
+        <label for="node-input-apiSn"><i class="fa fa-tag"></i> Serial Number</label>
+        <input type="text" id="node-input-apiSn" placeholder="Serial Number">
+    </div>
+
+    <div class="form-row">
+        <label for="node-input-endPoint"><i class="fa fa-tag"></i> Solax Cloud Api Endpoint</label>
+        <input type="text" id="node-input-endPoint" placeholder="End Point">
+    </div>
+
+    <div class="form-row">
+        <label for="node-input-refreshPeriod"><i class="fa fa-tag"></i> Refresh Solax Cloud Api Endpoint</label>
+        <input type="text" id="node-input-refreshPeriod" placeholder="Refresh Period">
+    </div>
+
+</script>
+
+<script type="text/html" data-help-name="solax-cloud-api-client">
+    <p>A simple node https client for solax-cloud </p>
+</script>
