@@ -69,13 +69,13 @@ module.exports = function(RED) {
 
         function calcTimeOutToCall(lastUpdated){
             let dateTimeformater=DateTimeFormatter.ofPattern('yyyy-MM-dd HH:mm:ss');
-            let updated=LocalDateTime.parse(lastUpdated,dateTimeformater).plusHours(1);
-            let nexUpdateAt=LocalDateTime.parse(lastUpdated,dateTimeformater).plusHours(1).plusSeconds(refreshPeriod);
+            let nexUpdateAt=LocalDateTime.parse(lastUpdated,dateTimeformater).plusSeconds(refreshPeriod);
             let gap=(LocalDateTime.now().until(nexUpdateAt,ChronoUnit.SECONDS))*1000;
             if(gap<=0){
                 return 15000;
             }
             console.log("next reload at "+gap);
+            node.status({fill:"green",shape:"dot",text:"Refresh at "+nexUpdateAt+" "});
             return gap;
         }
     }
