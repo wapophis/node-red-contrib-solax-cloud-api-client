@@ -4,7 +4,7 @@
   "description": "A solax cloud api client",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha \"test/**/*_spec.js\""
   },
   "keywords": [
     "node-red",
@@ -24,5 +24,10 @@
     "@js-joda/core": "^5.2.0",
     "@js-joda/timezone": "^2.12.0",
     "axios": "^1.3.4"
+  },
+  "devDependencies": {
+    "mocha": "^11.1.0",
+    "node-red": "^4.0.9",
+    "node-red-node-test-helper": "^0.3.4"
   }
 }
