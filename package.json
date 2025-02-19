@@ -1,6 +1,6 @@
 {
   "name": "@virtualbat/node-red-contrib-solax-cloud-api-client",
-  "version": "2.0.1-SNAPSHOT",
+  "version": "2.0.1",
   "description": "A solax cloud api client",
   "main": "index.js",
   "scripts": {
