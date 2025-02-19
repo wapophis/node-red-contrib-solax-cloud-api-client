@@ -17,6 +17,7 @@ module.exports = function(RED) {
         var apiSn=config.apiSn;
         var endPoint=config.endPoint;
         var refreshPeriod=config.refreshPeriod||300;
+        var loop=config.loop===undefined?true:config.loop;
 
         this.on('close', function() {
             clearTimeout(looperTimeout);
@@ -34,11 +35,11 @@ module.exports = function(RED) {
 
         function queryServer(){   
             axios
-              .get(endPoint,{params:{
+              .post(endPoint,{
+                wifiSn: apiSn,
+            },{headers:{
                 tokenId:apiToken
-                ,sn:apiSn
-              }
-            })
+            }})
               .then(res => {
                 setNodeStatus(res);
                   var msg={};
@@ -46,7 +47,12 @@ module.exports = function(RED) {
                   node.send(msg);
 
                // console.log(res);
+               if(loop===true){
                 looperTimeout=setTimeout(queryServer, calcTimeOutToCall(res.data.result.uploadTime), msg);
+               }
+               else{
+                console.log("Looper is disabled");
+               }
               
                 
               })
