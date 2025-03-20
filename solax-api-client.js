@@ -18,6 +18,8 @@ module.exports = function(RED) {
         var endPoint=config.endPoint;
         var refreshPeriod=config.refreshPeriod||300;
         var loop=config.loop===undefined?true:config.loop;
+        var reintento=0;
+
 
         this.on('close', function() {
             clearTimeout(looperTimeout);
@@ -58,6 +60,8 @@ module.exports = function(RED) {
               })
               .catch(error => {
                 console.error(error);
+                looperTimeout=setTimeout(queryServer,getExponentialBackoffDelay(reintento,10000,refreshPeriod*1000));
+                node.status({fill:"red",shape:"dot",text:"InternalErrorInClinet: "+error});
               });
         }
 
@@ -83,6 +87,10 @@ module.exports = function(RED) {
             console.log("next reload at "+gap);
             node.status({fill:"green",shape:"dot",text:"Refresh at "+nexUpdateAt+" "});
             return gap;
+        }
+
+        function getExponentialBackoffDelay(reintento, baseDelay = 1000, maxDelay = 16000) {
+            return Math.min(baseDelay * Math.pow(2, attempt), maxDelay);
         }
     }
 
